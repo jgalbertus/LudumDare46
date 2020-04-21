@@ -1,0 +1,205 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Slider.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/BoidCollection.gd" type="Script" id=2]
+
+[node name="BoidStuff" type="Node2D"]
+modulate = Color( 1, 0, 0, 1 )
+
+[node name="BoidCollection" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="BoidHud" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoidHud"]
+margin_right = 400.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveSlider" type="HBoxContainer" parent="BoidHud/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 16.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BoidHud/VBoxContainer/MoveSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Movement Speed"
+
+[node name="HSlider" type="HSlider" parent="BoidHud/VBoxContainer/MoveSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 1.0
+max_value = 400.0
+value = 105.0
+
+[node name="Value" type="Label" parent="BoidHud/VBoxContainer/MoveSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurnSlider" type="HBoxContainer" parent="BoidHud/VBoxContainer"]
+margin_top = 20.0
+margin_right = 400.0
+margin_bottom = 36.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BoidHud/VBoxContainer/TurnSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Turn / Steer"
+
+[node name="HSlider" type="HSlider" parent="BoidHud/VBoxContainer/TurnSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+max_value = 400.0
+value = 70.0
+
+[node name="Value" type="Label" parent="BoidHud/VBoxContainer/TurnSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlignSlider" type="HBoxContainer" parent="BoidHud/VBoxContainer"]
+margin_top = 40.0
+margin_right = 400.0
+margin_bottom = 56.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BoidHud/VBoxContainer/AlignSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Alignment"
+
+[node name="HSlider" type="HSlider" parent="BoidHud/VBoxContainer/AlignSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 0.1
+max_value = 2.0
+step = 0.01
+value = 0.5
+
+[node name="Value" type="Label" parent="BoidHud/VBoxContainer/AlignSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CohesionSlider" type="HBoxContainer" parent="BoidHud/VBoxContainer"]
+margin_top = 60.0
+margin_right = 400.0
+margin_bottom = 76.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BoidHud/VBoxContainer/CohesionSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Cohesion"
+
+[node name="HSlider" type="HSlider" parent="BoidHud/VBoxContainer/CohesionSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 0.1
+max_value = 2.0
+step = 0.01
+value = 0.5
+
+[node name="Value" type="Label" parent="BoidHud/VBoxContainer/CohesionSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Separation Slider" type="HBoxContainer" parent="BoidHud/VBoxContainer"]
+margin_top = 80.0
+margin_right = 400.0
+margin_bottom = 96.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BoidHud/VBoxContainer/Separation Slider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Separation"
+
+[node name="HSlider" type="HSlider" parent="BoidHud/VBoxContainer/Separation Slider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 0.1
+max_value = 10.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="BoidHud/VBoxContainer/Separation Slider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="value_changed" from="BoidHud/VBoxContainer/MoveSlider" to="BoidCollection" method="_on_Boid_MoveSlider_value_changed"]
+[connection signal="value_changed" from="BoidHud/VBoxContainer/TurnSlider" to="BoidCollection" method="_on_Boid_TurnSlider_value_changed"]
+[connection signal="value_changed" from="BoidHud/VBoxContainer/AlignSlider" to="BoidCollection" method="_on_Boid_AlignSlider_value_changed"]
+[connection signal="value_changed" from="BoidHud/VBoxContainer/CohesionSlider" to="BoidCollection" method="_on_Boid_CohesionSlider_value_changed"]
+[connection signal="value_changed" from="BoidHud/VBoxContainer/Separation Slider" to="BoidCollection" method="_on_Boid_Separation_Slider_value_changed"]

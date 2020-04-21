@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Shaders/foreground.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/offset = Vector2( 2.746, 1.749 )
+shader_param/scale = 1.217
+shader_param/speed = 0.031
+shader_param/red = 0.121
+shader_param/green = 0.069
+shader_param/blue = 0.155

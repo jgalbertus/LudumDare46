@@ -1,0 +1,1057 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scenes/GameHUD.gd" type="Script" id=1]
+[ext_resource path="res://Shaders/Background_Shader.tres" type="Material" id=2]
+[ext_resource path="res://Scenes/BoidCollection.gd" type="Script" id=3]
+[ext_resource path="res://Shaders/foreground.tres" type="Material" id=4]
+[ext_resource path="res://Fonts/glacial-indifference/GlacialIndifference_1310/OTF/GlacialIndifference-Regular.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://Scenes/BoidCreature.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Slider.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Mouse_Node.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Predator.tscn" type="PackedScene" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 5 )
+
+[node name="GameEnvironment" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+material = ExtResource( 2 )
+margin_right = 600.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BabyMakers" type="Node2D" parent="." groups=[
+"Red",
+]]
+modulate = Color( 1, 0.796078, 0, 1 )
+
+[node name="BoidCollection" type="Node2D" parent="BabyMakers"]
+script = ExtResource( 3 )
+group_name = "Baby_Makers"
+
+[node name="BoidHud" type="Control" parent="BabyMakers"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BabyMakers/BoidHud"]
+margin_right = 400.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveSlider" type="HBoxContainer" parent="BabyMakers/BoidHud/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 16.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/MoveSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Movement Speed"
+
+[node name="HSlider" type="HSlider" parent="BabyMakers/BoidHud/VBoxContainer/MoveSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 1.0
+max_value = 400.0
+value = 200.0
+
+[node name="Value" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/MoveSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurnSlider" type="HBoxContainer" parent="BabyMakers/BoidHud/VBoxContainer"]
+margin_top = 20.0
+margin_right = 400.0
+margin_bottom = 36.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/TurnSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Turn / Steer"
+
+[node name="HSlider" type="HSlider" parent="BabyMakers/BoidHud/VBoxContainer/TurnSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+max_value = 400.0
+value = 70.0
+
+[node name="Value" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/TurnSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlignSlider" type="HBoxContainer" parent="BabyMakers/BoidHud/VBoxContainer"]
+margin_top = 40.0
+margin_right = 400.0
+margin_bottom = 56.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/AlignSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Alignment"
+
+[node name="HSlider" type="HSlider" parent="BabyMakers/BoidHud/VBoxContainer/AlignSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -3.0
+max_value = 3.0
+step = 0.01
+value = 0.5
+
+[node name="Value" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/AlignSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CohesionSlider" type="HBoxContainer" parent="BabyMakers/BoidHud/VBoxContainer"]
+margin_top = 60.0
+margin_right = 400.0
+margin_bottom = 76.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/CohesionSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Cohesion"
+
+[node name="HSlider" type="HSlider" parent="BabyMakers/BoidHud/VBoxContainer/CohesionSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -3.0
+max_value = 3.0
+step = 0.01
+value = 3.0
+
+[node name="Value" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/CohesionSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SeparationSlider" type="HBoxContainer" parent="BabyMakers/BoidHud/VBoxContainer"]
+margin_top = 80.0
+margin_right = 400.0
+margin_bottom = 96.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/SeparationSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Separation"
+
+[node name="HSlider" type="HSlider" parent="BabyMakers/BoidHud/VBoxContainer/SeparationSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+value = 5.0
+
+[node name="Value" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/SeparationSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Avoidance" type="HBoxContainer" parent="BabyMakers/BoidHud/VBoxContainer"]
+margin_top = 100.0
+margin_right = 400.0
+margin_bottom = 116.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/Avoidance"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Avoidance"
+
+[node name="HSlider" type="HSlider" parent="BabyMakers/BoidHud/VBoxContainer/Avoidance"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/Avoidance"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Attraction" type="HBoxContainer" parent="BabyMakers/BoidHud/VBoxContainer"]
+margin_top = 120.0
+margin_right = 400.0
+margin_bottom = 136.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/Attraction"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Attraction"
+
+[node name="HSlider" type="HSlider" parent="BabyMakers/BoidHud/VBoxContainer/Attraction"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+
+[node name="Value" type="Label" parent="BabyMakers/BoidHud/VBoxContainer/Attraction"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoidCreature" parent="BabyMakers" instance=ExtResource( 6 )]
+visible = false
+
+[node name="PlayerFlock" type="Node2D" parent="." groups=[
+"Red",
+]]
+modulate = Color( 0, 0.952941, 1, 1 )
+
+[node name="BoidCollection" type="Node2D" parent="PlayerFlock"]
+script = ExtResource( 3 )
+group_name = "Player_Boids"
+
+[node name="BoidHud" type="Control" parent="PlayerFlock"]
+visible = false
+margin_top = 200.0
+margin_right = 40.0
+margin_bottom = 240.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerFlock/BoidHud"]
+margin_right = 400.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveSlider" type="HBoxContainer" parent="PlayerFlock/BoidHud/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 16.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/MoveSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Movement Speed"
+
+[node name="HSlider" type="HSlider" parent="PlayerFlock/BoidHud/VBoxContainer/MoveSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 1.0
+max_value = 400.0
+value = 400.0
+
+[node name="Value" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/MoveSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurnSlider" type="HBoxContainer" parent="PlayerFlock/BoidHud/VBoxContainer"]
+margin_top = 20.0
+margin_right = 400.0
+margin_bottom = 36.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/TurnSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Turn / Steer"
+
+[node name="HSlider" type="HSlider" parent="PlayerFlock/BoidHud/VBoxContainer/TurnSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+max_value = 400.0
+value = 100.0
+
+[node name="Value" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/TurnSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlignSlider" type="HBoxContainer" parent="PlayerFlock/BoidHud/VBoxContainer"]
+margin_top = 40.0
+margin_right = 400.0
+margin_bottom = 56.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/AlignSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Alignment"
+
+[node name="HSlider" type="HSlider" parent="PlayerFlock/BoidHud/VBoxContainer/AlignSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -3.0
+max_value = 3.0
+step = 0.01
+value = 2.0
+
+[node name="Value" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/AlignSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CohesionSlider" type="HBoxContainer" parent="PlayerFlock/BoidHud/VBoxContainer"]
+margin_top = 60.0
+margin_right = 400.0
+margin_bottom = 76.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/CohesionSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Cohesion"
+
+[node name="HSlider" type="HSlider" parent="PlayerFlock/BoidHud/VBoxContainer/CohesionSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -3.0
+max_value = 3.0
+step = 0.01
+value = 0.5
+
+[node name="Value" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/CohesionSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SeparationSlider" type="HBoxContainer" parent="PlayerFlock/BoidHud/VBoxContainer"]
+margin_top = 80.0
+margin_right = 400.0
+margin_bottom = 96.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/SeparationSlider"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Separation"
+
+[node name="HSlider" type="HSlider" parent="PlayerFlock/BoidHud/VBoxContainer/SeparationSlider"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+value = -3.0
+
+[node name="Value" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/SeparationSlider"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Avoidance" type="HBoxContainer" parent="PlayerFlock/BoidHud/VBoxContainer"]
+margin_top = 100.0
+margin_right = 400.0
+margin_bottom = 116.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/Avoidance"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Avoidance"
+
+[node name="HSlider" type="HSlider" parent="PlayerFlock/BoidHud/VBoxContainer/Avoidance"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+value = 1.0
+
+[node name="Value" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/Avoidance"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Attraction" type="HBoxContainer" parent="PlayerFlock/BoidHud/VBoxContainer"]
+margin_top = 120.0
+margin_right = 400.0
+margin_bottom = 136.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/Attraction"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Attraction"
+
+[node name="HSlider" type="HSlider" parent="PlayerFlock/BoidHud/VBoxContainer/Attraction"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = -5.0
+max_value = 5.0
+step = 0.01
+value = 5.0
+
+[node name="Value" type="Label" parent="PlayerFlock/BoidHud/VBoxContainer/Attraction"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoidCreature" parent="PlayerFlock" instance=ExtResource( 6 )]
+visible = false
+
+[node name="LifeTimer" type="Timer" parent="PlayerFlock"]
+autostart = true
+
+[node name="PredatorHUD" type="Control" parent="."]
+visible = false
+margin_top = 400.0
+margin_right = 40.0
+margin_bottom = 440.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PredatorHUD"]
+margin_right = 400.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Attraction_Force" type="HBoxContainer" parent="PredatorHUD/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 16.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PredatorHUD/VBoxContainer/Attraction_Force"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Attraction_Force"
+
+[node name="HSlider" type="HSlider" parent="PredatorHUD/VBoxContainer/Attraction_Force"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+max_value = 1000.0
+step = 1.0
+value = 1000.0
+
+[node name="Value" type="Label" parent="PredatorHUD/VBoxContainer/Attraction_Force"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player_Repulsion_Force" type="HBoxContainer" parent="PredatorHUD/VBoxContainer"]
+margin_top = 20.0
+margin_right = 400.0
+margin_bottom = 36.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PredatorHUD/VBoxContainer/Player_Repulsion_Force"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Player Repulsion"
+
+[node name="HSlider" type="HSlider" parent="PredatorHUD/VBoxContainer/Player_Repulsion_Force"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+max_value = 100.0
+step = 1.0
+value = 20.0
+
+[node name="Value" type="Label" parent="PredatorHUD/VBoxContainer/Player_Repulsion_Force"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Predator_Repulsion_Force" type="HBoxContainer" parent="PredatorHUD/VBoxContainer"]
+margin_top = 40.0
+margin_right = 400.0
+margin_bottom = 56.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PredatorHUD/VBoxContainer/Predator_Repulsion_Force"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Predator Repulsion"
+
+[node name="HSlider" type="HSlider" parent="PredatorHUD/VBoxContainer/Predator_Repulsion_Force"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+max_value = 100.0
+step = 1.0
+
+[node name="Value" type="Label" parent="PredatorHUD/VBoxContainer/Predator_Repulsion_Force"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mass" type="HBoxContainer" parent="PredatorHUD/VBoxContainer"]
+margin_top = 60.0
+margin_right = 400.0
+margin_bottom = 76.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PredatorHUD/VBoxContainer/Mass"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Mass"
+
+[node name="HSlider" type="HSlider" parent="PredatorHUD/VBoxContainer/Mass"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 1.0
+max_value = 100.0
+step = 10.0
+value = 20.0
+
+[node name="Value" type="Label" parent="PredatorHUD/VBoxContainer/Mass"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Constraint" type="HBoxContainer" parent="PredatorHUD/VBoxContainer"]
+margin_top = 80.0
+margin_right = 400.0
+margin_bottom = 96.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PredatorHUD/VBoxContainer/Constraint"]
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 150, 0 )
+text = "Constraint"
+
+[node name="HSlider" type="HSlider" parent="PredatorHUD/VBoxContainer/Constraint"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 200, 0 )
+min_value = 1.0
+max_value = 200.0
+step = 10.0
+value = 30.0
+
+[node name="Value" type="Label" parent="PredatorHUD/VBoxContainer/Constraint"]
+margin_left = 358.0
+margin_top = 1.0
+margin_right = 393.0
+margin_bottom = 15.0
+text = "Value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Predator2" parent="." instance=ExtResource( 10 )]
+position = Vector2( -1, 0 )
+
+[node name="GAME_HUD" type="VBoxContainer" parent="."]
+margin_right = 204.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Baby_Makers" type="HBoxContainer" parent="GAME_HUD"]
+margin_right = 204.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="GAME_HUD/Baby_Makers"]
+margin_right = 100.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 0 )
+text = "Baby_Makers"
+
+[node name="Value" type="Label" parent="GAME_HUD/Baby_Makers"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 0 )
+text = "0	"
+script = ExtResource( 1 )
+group_name = "Baby_Makers"
+
+[node name="Player_Boids" type="HBoxContainer" parent="GAME_HUD"]
+margin_top = 18.0
+margin_right = 204.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="GAME_HUD/Player_Boids"]
+margin_right = 100.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 0 )
+text = "Player_Boids"
+
+[node name="Value" type="Label" parent="GAME_HUD/Player_Boids"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 0 )
+text = "0	"
+script = ExtResource( 1 )
+group_name = "Player_Boids"
+
+[node name="Predators" type="HBoxContainer" parent="GAME_HUD"]
+margin_top = 36.0
+margin_right = 204.0
+margin_bottom = 50.0
+
+[node name="Label" type="Label" parent="GAME_HUD/Predators"]
+margin_right = 100.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 0 )
+text = "Predators"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="GAME_HUD/Predators"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 0 )
+text = "0	"
+script = ExtResource( 1 )
+group_name = "Predators"
+
+[node name="MousePosition" parent="." groups=[
+"Attractors",
+"Mouse",
+] instance=ExtResource( 9 )]
+
+[node name="ForeGround2" type="ColorRect" parent="."]
+material = ExtResource( 4 )
+margin_right = 600.0
+margin_bottom = 400.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="ColorRect" parent="."]
+margin_right = 600.0
+margin_bottom = 400.0
+color = Color( 0, 0, 0, 0.654902 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+margin_left = 2.0
+margin_top = 102.0
+margin_right = 602.0
+margin_bottom = 402.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player_Boids" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 19.0
+alignment = 1
+
+[node name="Value2" type="Label" parent="GameOver/VBoxContainer/Player_Boids"]
+margin_left = 224.0
+margin_right = 233.0
+margin_bottom = 19.0
+grow_horizontal = 0
+custom_fonts/font = SubResource( 1 )
+text = "0	"
+align = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+group_name = "Player_Boids"
+
+[node name="Label2" type="Label" parent="GameOver/VBoxContainer/Player_Boids"]
+margin_left = 237.0
+margin_right = 376.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = SubResource( 2 )
+text = "Blue / Protector Flock"
+
+[node name="Feeders" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+margin_top = 23.0
+margin_right = 600.0
+margin_bottom = 42.0
+alignment = 1
+
+[node name="Value2" type="Label" parent="GameOver/VBoxContainer/Feeders"]
+margin_left = 240.0
+margin_right = 249.0
+margin_bottom = 19.0
+grow_horizontal = 0
+custom_fonts/font = SubResource( 1 )
+text = "0	"
+align = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+group_name = "Baby_Makers"
+
+[node name="Label2" type="Label" parent="GameOver/VBoxContainer/Feeders"]
+margin_left = 253.0
+margin_right = 360.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = SubResource( 2 )
+text = "Green / Feeders"
+
+[node name="Feeders2" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+margin_top = 46.0
+margin_right = 600.0
+margin_bottom = 65.0
+alignment = 1
+
+[node name="Value2" type="Label" parent="GameOver/VBoxContainer/Feeders2"]
+margin_left = 241.0
+margin_right = 250.0
+margin_bottom = 19.0
+grow_horizontal = 0
+custom_fonts/font = SubResource( 1 )
+text = "0	"
+align = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+group_name = "Predators"
+
+[node name="Label2" type="Label" parent="GameOver/VBoxContainer/Feeders2"]
+margin_left = 254.0
+margin_right = 358.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = SubResource( 2 )
+text = "Red / Predators"
+
+[node name="Time_Spent" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+margin_top = 69.0
+margin_right = 600.0
+margin_bottom = 88.0
+alignment = 1
+
+[node name="Value2" type="Label" parent="GameOver/VBoxContainer/Time_Spent"]
+margin_left = 186.0
+margin_right = 195.0
+margin_bottom = 19.0
+grow_horizontal = 0
+custom_fonts/font = SubResource( 1 )
+text = "0	"
+align = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+group_name = "Score"
+
+[node name="Label2" type="Label" parent="GameOver/VBoxContainer/Time_Spent"]
+margin_left = 199.0
+margin_right = 414.0
+margin_bottom = 19.0
+custom_fonts/font = SubResource( 2 )
+text = "Final Score / Seconds of Balance"
+
+[node name="Ending Messag" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+margin_top = 92.0
+margin_right = 600.0
+margin_bottom = 111.0
+alignment = 1
+
+[node name="Label2" type="Label" parent="GameOver/VBoxContainer/Ending Messag"]
+margin_left = 150.0
+margin_right = 450.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 2 )
+autowrap = true
+script = ExtResource( 1 )
+group_name = "Spacer"
+
+[node name="Ending Messag2" type="HBoxContainer" parent="GameOver/VBoxContainer"]
+margin_top = 115.0
+margin_right = 600.0
+margin_bottom = 134.0
+alignment = 1
+
+[node name="Label2" type="Label" parent="GameOver/VBoxContainer/Ending Messag2"]
+margin_left = 150.0
+margin_right = 450.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 2 )
+text = "Final Score"
+autowrap = true
+script = ExtResource( 1 )
+group_name = "Finale"
+
+[node name="Button" type="Button" parent="GameOver"]
+margin_left = 200.0
+margin_top = 283.0
+margin_right = 400.0
+margin_bottom = 361.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GameOver/Button"]
+margin_right = 200.0
+margin_bottom = 79.0
+text = "play"
+align = 1
+valign = 1
+[connection signal="value_changed" from="BabyMakers/BoidHud/VBoxContainer/MoveSlider" to="BabyMakers/BoidCollection" method="_on_Boid_MoveSlider_value_changed"]
+[connection signal="value_changed" from="BabyMakers/BoidHud/VBoxContainer/TurnSlider" to="BabyMakers/BoidCollection" method="_on_Boid_TurnSlider_value_changed"]
+[connection signal="value_changed" from="BabyMakers/BoidHud/VBoxContainer/AlignSlider" to="BabyMakers/BoidCollection" method="_on_Boid_AlignSlider_value_changed"]
+[connection signal="value_changed" from="BabyMakers/BoidHud/VBoxContainer/CohesionSlider" to="BabyMakers/BoidCollection" method="_on_Boid_CohesionSlider_value_changed"]
+[connection signal="value_changed" from="BabyMakers/BoidHud/VBoxContainer/SeparationSlider" to="BabyMakers/BoidCollection" method="_on_Boid_Separation_Slider_value_changed"]
+[connection signal="value_changed" from="BabyMakers/BoidHud/VBoxContainer/Avoidance" to="BabyMakers/BoidCollection" method="_on_Avoidance_value_changed"]
+[connection signal="value_changed" from="BabyMakers/BoidHud/VBoxContainer/Attraction" to="BabyMakers/BoidCollection" method="_on_Attraction_value_changed"]
+[connection signal="area_entered" from="BabyMakers/BoidCreature" to="BabyMakers/BoidCollection" method="_on_BoidCreature_area_entered"]
+[connection signal="value_changed" from="PlayerFlock/BoidHud/VBoxContainer/MoveSlider" to="PlayerFlock/BoidCollection" method="_on_Boid_MoveSlider_value_changed"]
+[connection signal="value_changed" from="PlayerFlock/BoidHud/VBoxContainer/TurnSlider" to="PlayerFlock/BoidCollection" method="_on_Boid_TurnSlider_value_changed"]
+[connection signal="value_changed" from="PlayerFlock/BoidHud/VBoxContainer/AlignSlider" to="PlayerFlock/BoidCollection" method="_on_Boid_AlignSlider_value_changed"]
+[connection signal="value_changed" from="PlayerFlock/BoidHud/VBoxContainer/CohesionSlider" to="PlayerFlock/BoidCollection" method="_on_Boid_CohesionSlider_value_changed"]
+[connection signal="value_changed" from="PlayerFlock/BoidHud/VBoxContainer/SeparationSlider" to="PlayerFlock/BoidCollection" method="_on_Boid_Separation_Slider_value_changed"]
+[connection signal="value_changed" from="PlayerFlock/BoidHud/VBoxContainer/Avoidance" to="PlayerFlock/BoidCollection" method="_on_Avoidance_value_changed"]
+[connection signal="value_changed" from="PlayerFlock/BoidHud/VBoxContainer/Attraction" to="PlayerFlock/BoidCollection" method="_on_Attraction_value_changed"]
+[connection signal="area_entered" from="PlayerFlock/BoidCreature" to="PlayerFlock/BoidCollection" method="_on_BoidCreature_area_entered"]
+[connection signal="timeout" from="PlayerFlock/LifeTimer" to="PlayerFlock/BoidCollection" method="_on_LifeTimer_timeout"]
+[connection signal="value_changed" from="PredatorHUD/VBoxContainer/Attraction_Force" to="Predator2" method="_on_Attraction_Force_value_changed"]
+[connection signal="value_changed" from="PredatorHUD/VBoxContainer/Player_Repulsion_Force" to="Predator2" method="_on_Player_Repulsion_Force_value_changed"]
+[connection signal="value_changed" from="PredatorHUD/VBoxContainer/Predator_Repulsion_Force" to="Predator2" method="_on_Predator_Repulsion_Force_value_changed"]
+[connection signal="value_changed" from="PredatorHUD/VBoxContainer/Mass" to="Predator2" method="_on_Mass_value_changed"]
+[connection signal="pressed" from="GameOver/Button" to="GameOver/VBoxContainer/Ending Messag2/Label2" method="_on_Button_pressed"]
+
+[editable path="MousePosition"]

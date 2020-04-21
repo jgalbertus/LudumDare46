@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Shaders/simplex3d_Modified.tres" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/offset = null
+shader_param/scale = null
+shader_param/speed = null
+shader_param/red = null
+shader_param/green = null
+shader_param/blue = null
